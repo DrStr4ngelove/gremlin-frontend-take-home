@@ -21,7 +21,7 @@ export const useHeaderProps = (): HeaderProps => {
 
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setErrorMessage([])
+        setErrorMessage('')
         const url = shouldBreakAPICall
             ? ''
             : `https://api.npms.io/v2/search/suggestions?q=${searchQuery}`
