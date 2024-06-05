@@ -38,6 +38,7 @@ export const useHeaderProps = (): HeaderProps => {
             .catch((error) => {
                 // handle the error
                 console.error('Error fetching search results:', error)
+                setSearchResults([])
                 setErrorMessage('Error fetching search results')
             })
     }
