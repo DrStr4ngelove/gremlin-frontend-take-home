@@ -4,27 +4,21 @@ import { useSearchThemeContext } from '../../context'
 import { SearchResult } from '../types'
 import './SearchResults.css'
 
-const displayErrorMessages = (errorMessages: string[]) => {
-    return errorMessages?.map((errorMessage: string, index: number) => (
-        <p key={`error-${index}`} className="error-message">
-            {errorMessage}
-        </p>
-    ))
-}
-
 export const SearchResults: React.FC = () => {
     const {
         searchResults = [],
         theme,
-        errorMessages = [],
+        errorMessage = '',
     } = useSearchThemeContext()
-    if (errorMessages.length > 0) {
+
+    if (errorMessage) {
         return (
             <div className={`search-results ${theme}`}>
-                {displayErrorMessages(errorMessages)}
+                <p className="error-message">{errorMessage}</p>
             </div>
         )
     }
+
     return (
         <div className={`search-results ${theme}`}>
             {searchResults.length === 0 ? (

@@ -11,8 +11,8 @@ export const useHeaderProps = (): HeaderProps => {
         toggleTheme,
         theme,
         setSearchResults,
-        errorMessages,
-        setErrorMessages,
+        errorMessage,
+        setErrorMessage,
     } = useSearchThemeContext()
 
     const handleSearchChange = (value: string) => {
@@ -21,7 +21,7 @@ export const useHeaderProps = (): HeaderProps => {
 
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setErrorMessages([])
+        setErrorMessage([])
         const url = shouldBreakAPICall
             ? ''
             : `https://api.npms.io/v2/search/suggestions?q=${searchQuery}`
@@ -38,9 +38,7 @@ export const useHeaderProps = (): HeaderProps => {
             .catch((error) => {
                 // handle the error
                 console.error('Error fetching search results:', error)
-                setErrorMessages(
-                    errorMessages.concat('Error fetching search results')
-                )
+                setErrorMessage('Error fetching search results')
             })
     }
 

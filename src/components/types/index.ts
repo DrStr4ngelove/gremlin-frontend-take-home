@@ -3,8 +3,8 @@ export interface SearchThemeContextProps {
     searchResults: SearchResult[]
     setSearchResults: (results: SearchResult[]) => void
     toggleTheme: () => void
-    errorMessages: string[]
-    setErrorMessages: (messages: string[]) => void
+    errorMessage: string
+    setErrorMessage: (messages: string) => void
     totalPackages: number | undefined
 }
 export interface HeaderProps {

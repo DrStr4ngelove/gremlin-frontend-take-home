@@ -9,7 +9,7 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
-    const [errorMessages, setErrorMessages] = useState<string[]>([])
+    const [errorMessage, setErrorMessage] = useState<string>('')
     const [theme, setTheme] = useState('light')
 
     const toggleTheme = () => {
@@ -24,8 +24,8 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                 theme,
                 toggleTheme,
                 totalPackages: searchResults?.length,
-                errorMessages,
-                setErrorMessages,
+                errorMessage,
+                setErrorMessage,
             }}
         >
             {children}

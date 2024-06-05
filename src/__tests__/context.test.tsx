@@ -12,8 +12,8 @@ const TestComponent = () => {
         theme,
         toggleTheme,
         totalPackages,
-        errorMessages,
-        setErrorMessages,
+        errorMessage,
+        setErrorMessage,
     } = useSearchThemeContext()
 
     return (
@@ -25,13 +25,11 @@ const TestComponent = () => {
             <span data-testid="total-packages">{totalPackages}</span>
             <button
                 data-testid="add-error"
-                onClick={() =>
-                    setErrorMessages([...errorMessages, 'New Error'])
-                }
+                onClick={() => setErrorMessage([...errorMessage, 'New Error'])}
             >
                 Add Error
             </button>
-            <span data-testid="error-messages">{errorMessages.join(', ')}</span>
+            <span data-testid="error-messages">{errorMessage}</span>
             <button
                 data-testid="add-result"
                 onClick={() =>

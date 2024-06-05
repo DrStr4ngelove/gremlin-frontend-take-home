@@ -5,7 +5,7 @@ import SubHeader from '../index'
 import { useSearchThemeContext } from '../../../context'
 
 // Mock the context to provide controlled values for the tests
-jest.mock('../../context', () => ({
+jest.mock('../../../context', () => ({
     useSearchThemeContext: jest.fn(),
 }))
 
