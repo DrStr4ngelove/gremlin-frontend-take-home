@@ -1,0 +1,18 @@
+.search-results {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.search-results.light {
+    color: #000;
+}
+
+.search-results.dark {
+    color: #fff;
+}
+
+.no-results {
+    padding: 10px;
+    text-align: center;
+}

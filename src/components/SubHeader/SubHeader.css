@@ -1,0 +1,18 @@
+.subheader {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.subheader.light {
+    background-color: #f5f5f5;
+    color: black;
+}
+
+.subheader.dark {
+    background-color: gray;
+    color: white;
+}
+
+.subheader h2 {
+    margin: 0;
+}

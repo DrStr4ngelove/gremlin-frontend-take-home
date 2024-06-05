@@ -1,0 +1,17 @@
+.search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-result-item h2 {
+    margin: 0 0 5px 0;
+    cursor: pointer; /* Makes it clear that the heading is clickable */
+}
+
+.search-result-item p {
+    margin: 0 0 5px 0;
+}
+
+.search-result-item .author-info {
+    font-size: 14px;
+}

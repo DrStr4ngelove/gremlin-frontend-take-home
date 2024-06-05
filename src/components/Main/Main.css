@@ -1,0 +1,14 @@
+.main {
+    padding: 20px;
+    height: 100%;
+}
+
+.main.light {
+    color: #000;
+    background-color: #fff;
+}
+
+.main.dark {
+    color: #fff;
+    background-color: #333;
+}

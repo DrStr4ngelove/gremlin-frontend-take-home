@@ -1,0 +1,46 @@
+.header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header.light {
+    color: #000;
+    background-color: gray;
+}
+
+.header.dark {
+    color: #fff;
+    background-color: black;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.label {
+    margin-right: 10px;
+}
+
+.label.light {
+    color: #000;
+}
+
+.label.dark {
+    color: #fff;
+}
+
+.checkbox {
+    margin-right: 5px;
+}
+
+.button {
+    padding: 5px 10px;
+}
