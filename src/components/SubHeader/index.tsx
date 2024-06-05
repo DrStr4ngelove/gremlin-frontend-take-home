@@ -7,7 +7,7 @@ export const Subheader: React.FC = () => {
 
     return (
         <>
-            {totalPackages > 0 ? (
+            {totalPackages !== undefined && totalPackages > 0 ? (
                 <div className={`subheader ${theme}`}>
                     <h2>{totalPackages} Packages Found</h2>
                 </div>

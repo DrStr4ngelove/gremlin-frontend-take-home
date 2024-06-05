@@ -1,13 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
-import { SearchResult } from './components/types'
-
-interface SearchThemeContextProps {
-    searchResults: SearchResult[]
-    setSearchResults: React.Dispatch<React.SetStateAction<SearchResult[]>>
-    theme: string
-    toggleTheme: () => void
-    totalPackages: number
-}
+import { SearchResult, SearchThemeContextProps } from './components/types'
 
 const SearchThemeContext = createContext<SearchThemeContextProps | undefined>(
     undefined
@@ -17,6 +9,7 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+    const [errorMessages, setErrorMessages] = useState<string[]>([])
     const [theme, setTheme] = useState('light')
 
     const toggleTheme = () => {
@@ -31,6 +24,8 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                 theme,
                 toggleTheme,
                 totalPackages: searchResults?.length,
+                errorMessages,
+                setErrorMessages,
             }}
         >
             {children}

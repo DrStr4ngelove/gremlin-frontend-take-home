@@ -1,8 +1,20 @@
+export interface SearchThemeContextProps {
+    theme: string
+    searchResults: SearchResult[]
+    setSearchResults: (results: SearchResult[]) => void
+    toggleTheme: () => void
+    errorMessages: string[]
+    setErrorMessages: (messages: string[]) => void
+    totalPackages: number | undefined
+}
 export interface HeaderProps {
-    onToggleTheme: () => void
     searchQuery: string
     handleSearchChange: (value: string) => void
     handleSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+    toggleTheme: () => void
+    theme: string
+    shouldBreakAPICall: boolean
+    handleCheckboxChange: () => void
 }
 
 export type SearchResult = {
@@ -38,4 +50,19 @@ export type SearchResult = {
         searchScore: number
         highlight: string
     }
+}
+
+export type ResultItem = {
+    formattedResult: {
+        name: string
+        description: string
+        version: string
+        author: string
+        score: number
+    }
+    theme: string
+}
+
+export type ResultItemProps = {
+    result: Partial<SearchResult>
 }
