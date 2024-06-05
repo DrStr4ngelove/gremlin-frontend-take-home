@@ -5,6 +5,7 @@ const SearchThemeContext = createContext<SearchThemeContextProps | undefined>(
     undefined
 )
 
+// Use conext provider to manage state of app
 const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {

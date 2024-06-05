@@ -7,18 +7,16 @@ export const useHeaderProps = (): HeaderProps => {
     const [searchQuery, setSearchQuery] = useState('')
     const [shouldBreakAPICall, setShouldBreakAPICall] = useState(false)
 
-    const {
-        toggleTheme,
-        theme,
-        setSearchResults,
-        errorMessage,
-        setErrorMessage,
-    } = useSearchThemeContext()
+    // retrieve context
+    const { toggleTheme, theme, setSearchResults, setErrorMessage } =
+        useSearchThemeContext()
 
+    // handle search change - this could be deduped so as to not continuually re-render from parent component
     const handleSearchChange = (value: string) => {
         setSearchQuery(value)
     }
 
+    // handle search submit - no need to memoize with useCallback
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setErrorMessage('')
@@ -43,6 +41,7 @@ export const useHeaderProps = (): HeaderProps => {
             })
     }
 
+    // handle checkbox change - no need to memoize with useCallback
     const handleCheckboxChange = () => {
         setShouldBreakAPICall((prev) => !prev)
     }

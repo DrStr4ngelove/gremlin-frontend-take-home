@@ -66,6 +66,7 @@ describe('useResultItemProps', () => {
             version: '0.0.0',
             score: 0,
             author: 'Ryan Streur',
+            link: 'https://www.npmjs.com/package/asdf-cli',
         })
     })
 

@@ -32,7 +32,7 @@ describe('SearchResultItem', () => {
         expect(screen.getByText('Test Package')).toBeInTheDocument()
         expect(screen.getByText('This is a test package')).toBeInTheDocument()
         expect(screen.getByText('v1.0.0')).toBeInTheDocument()
-        expect(screen.getByText('byTest Author')).toBeInTheDocument()
+        expect(screen.getByText('by Test Author')).toBeInTheDocument()
     })
 
     test('renders without author', () => {

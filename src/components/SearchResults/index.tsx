@@ -11,6 +11,7 @@ export const SearchResults: React.FC = () => {
         errorMessage = '',
     } = useSearchThemeContext()
 
+    // Reurn error message if there is one
     if (errorMessage) {
         return (
             <div className={`search-results ${theme}`}>
@@ -18,7 +19,7 @@ export const SearchResults: React.FC = () => {
             </div>
         )
     }
-
+    // Return search results if there are any
     return (
         <div className={`search-results ${theme}`}>
             {searchResults.length === 0 ? (

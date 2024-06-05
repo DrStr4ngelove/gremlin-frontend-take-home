@@ -11,6 +11,7 @@ export const useResultItemProps = (props: ResultItemProps): ResultItem => {
         version: result?.package?.version || '',
         score: result?.package?.searchScore || 0,
         author: result?.package?.author?.name || '',
+        link: result?.package?.links?.npm || '',
     }
     return { formattedResult, theme }
 }
