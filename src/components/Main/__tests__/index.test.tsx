@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Main from '../index'
 import { useSearchThemeContext } from '../../../context'
-import { jest } from '@jest/globals'
 
 // Mock the context to provide controlled values and functions for the tests
 jest.mock('../../../context', () => ({

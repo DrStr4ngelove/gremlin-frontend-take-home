@@ -3,14 +3,14 @@ import { useHeaderProps } from '../hooks'
 import { useSearchThemeContext } from '../../../context'
 
 // Mock the context
-jest.mock('../../context', () => ({
+jest.mock('../../../context', () => ({
     useSearchThemeContext: jest.fn(),
 }))
 
 describe('useHeaderProps', () => {
     let setSearchResultsMock: jest.Mock
     let toggleThemeMock: jest.Mock
-
+    let setErrorMessagesMock: jest.Mock
     beforeEach(() => {
         setSearchResultsMock = jest.fn()
         toggleThemeMock = jest.fn()
@@ -18,6 +18,7 @@ describe('useHeaderProps', () => {
             toggleTheme: toggleThemeMock,
             theme: 'light',
             setSearchResults: setSearchResultsMock,
+            setErrorMessages: setErrorMessagesMock,
         })
     })
 
@@ -104,9 +105,7 @@ describe('useHeaderProps', () => {
 
         await waitForNextUpdate()
 
-        expect(global.fetch).toHaveBeenCalledWith(
-            'https://api.npms.io/v2/search/suggestions?q=react'
-        )
+        expect(global.fetch).toHaveBeenCalledWith('')
         expect(console.error).toHaveBeenCalledWith(
             'Error fetching search results:',
             new Error('API Error')

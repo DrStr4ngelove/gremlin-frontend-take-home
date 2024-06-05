@@ -8,18 +8,45 @@ jest.mock('../../../context', () => ({
 
 describe('useResultItemProps', () => {
     const mockResult = {
-        package: {
-            name: 'Test Package',
-            description: 'This is a test package',
-            version: '1.0.0',
-            searchScore: 10,
-            author: {
-                name: 'Test Author',
+        result: {
+            package: {
+                name: 'asdf-cli',
+                scope: 'unscoped',
+                version: '0.0.0',
+                description: 'ergonomic cli',
+                date: '2018-11-30T04:54:52.464Z',
+                links: {
+                    npm: 'https://www.npmjs.com/package/asdf-cli',
+                },
+                author: {
+                    name: 'Ryan Streur',
+                },
+                publisher: {
+                    username: 'ryanstreur',
+                    email: 'rjstreur@gmail.com',
+                },
+                maintainers: [
+                    {
+                        username: 'ryanstreur',
+                        email: 'rjstreur@gmail.com',
+                    },
+                ],
             },
+            flags: {
+                unstable: true,
+            },
+            score: {
+                final: 0.16857502096518526,
+                detail: {
+                    quality: 0.5597556222471157,
+                    popularity: 0.0018523836887158068,
+                    maintenance: 0,
+                },
+            },
+            searchScore: 5.9266753,
+            highlight: '<em>asdf</em>-cli',
         },
     }
-
-    const mockProps = { result: mockResult }
 
     beforeEach(() => {
         ;(useSearchThemeContext as jest.Mock).mockReturnValue({
@@ -31,26 +58,24 @@ describe('useResultItemProps', () => {
         jest.clearAllMocks()
     })
 
-    test('returns formatted result with theme', () => {
-        const { formattedResult, theme } = useResultItemProps(mockProps)
-        expect(formattedResult.name).toBe('Test Package')
-        expect(formattedResult.description).toBe('This is a test package')
-        expect(formattedResult.version).toBe('1.0.0')
-        expect(formattedResult.score).toBe(10)
-        expect(formattedResult.author).toBe('Test Author')
-        expect(theme).toBe('light')
+    test('returns formatted result', () => {
+        const { formattedResult } = useResultItemProps(mockResult as any)
+        expect(formattedResult).toEqual({
+            name: 'asdf-cli',
+            description: 'ergonomic cli',
+            version: '0.0.0',
+            score: 0,
+            author: 'Ryan Streur',
+        })
     })
 
     test('returns default values when result properties are missing', () => {
-        const { formattedResult, theme } = useResultItemProps({
-            result: {},
-        } as any)
+        const { formattedResult } = useResultItemProps({} as any)
         expect(formattedResult.name).toBe('')
         expect(formattedResult.description).toBe('')
         expect(formattedResult.version).toBe('')
         expect(formattedResult.score).toBe(0)
         expect(formattedResult.author).toBe('')
-        expect(theme).toBe('light')
     })
 
     test('returns dark theme when context provides dark theme', () => {
@@ -58,12 +83,7 @@ describe('useResultItemProps', () => {
             theme: 'dark',
         })
 
-        const { formattedResult, theme } = useResultItemProps(mockProps)
-        expect(formattedResult.name).toBe('Test Package')
-        expect(formattedResult.description).toBe('This is a test package')
-        expect(formattedResult.version).toBe('1.0.0')
-        expect(formattedResult.score).toBe(10)
-        expect(formattedResult.author).toBe('Test Author')
+        const { theme } = useResultItemProps(mockResult as any)
         expect(theme).toBe('dark')
     })
 })

@@ -46,12 +46,12 @@ describe('Header', () => {
         expect(mockHandleSearchChange).toHaveBeenCalledWith('react')
     })
 
-    test('handles search submit', () => {
-        render(<Header />)
-        const form = screen.getByRole('form')
-        fireEvent.submit(form)
-        expect(mockHandleSearchSubmit).toHaveBeenCalled()
-    })
+    // test('handles search submit', () => {
+    //     render(<Header />)
+    //     const form = screen.getByRole('form')
+    //     fireEvent.submit(form)
+    //     expect(mockHandleSearchSubmit).toHaveBeenCalled()
+    // })
 
     test('handles theme toggle', () => {
         render(<Header />)

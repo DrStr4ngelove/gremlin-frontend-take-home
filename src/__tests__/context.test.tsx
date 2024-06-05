@@ -2,10 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import '@testing-library/jest-dom/extend-expect'
-import {
-    SearchThemeProvider,
-    useSearchThemeContext,
-} from '../SearchThemeContext'
+import { SearchThemeProvider, useSearchThemeContext } from '../context'
 
 // Test component to consume context
 const TestComponent = () => {
