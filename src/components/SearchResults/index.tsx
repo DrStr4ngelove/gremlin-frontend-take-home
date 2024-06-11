@@ -4,6 +4,7 @@ import { useSearchThemeContext } from '../../context'
 import { SearchResult } from '../types'
 import './SearchResults.css'
 import SortBy from './SortBy'
+import Loader from '../Loader'
 
 export const SearchResults: React.FC = () => {
     const {
@@ -11,6 +12,7 @@ export const SearchResults: React.FC = () => {
         theme,
         errorMessage = '',
         sortResults,
+        loading,
     } = useSearchThemeContext()
 
     // Reurn error message if there is one
@@ -18,6 +20,14 @@ export const SearchResults: React.FC = () => {
         return (
             <div className={`search-results ${theme}`}>
                 <p className="error-message">{errorMessage}</p>
+            </div>
+        )
+    }
+    // show spinner if loading
+    if (loading) {
+        return (
+            <div className={`search-results ${theme}`}>
+                <Loader />
             </div>
         )
     }

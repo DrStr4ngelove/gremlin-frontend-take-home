@@ -13,10 +13,14 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [theme, setTheme] = useState<string>('light')
     const [sortBy, setSortBy] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
+
+    // Toggle between light and dark theme
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
     }
 
+    // Sort search results based on selected criteria
     const sortResults = (results: SearchResult[]): SearchResult[] => {
         const sortedResults = results.sort(
             (a: SearchResult, b: SearchResult) => {
@@ -54,6 +58,8 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                 sortResults,
                 sortBy,
                 setSortBy,
+                loading,
+                setLoading,
             }}
         >
             {children}

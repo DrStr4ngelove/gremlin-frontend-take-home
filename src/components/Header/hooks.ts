@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { HeaderProps, SearchResult } from '../types'
 import { useSearchThemeContext } from '../../context'
 
@@ -8,10 +8,15 @@ export const useHeaderProps = (): HeaderProps => {
     const [shouldBreakAPICall, setShouldBreakAPICall] = useState(false)
 
     // retrieve context
-    const { toggleTheme, theme, setSearchResults, setErrorMessage } =
-        useSearchThemeContext()
+    const {
+        toggleTheme,
+        theme,
+        setSearchResults,
+        setErrorMessage,
+        setLoading,
+    } = useSearchThemeContext()
 
-    // handle search change - this could be deduped so as to not continuually re-render from parent component
+    // handle search change - this could be debounced
     const handleSearchChange = (value: string) => {
         setSearchQuery(value)
     }
@@ -36,6 +41,9 @@ export const useHeaderProps = (): HeaderProps => {
             ? null
             : `https://api.npms.io/v2/search/suggestions?q=${searchQuery}`
 
+        // set loading true
+        setLoading(true)
+
         // fetch results
         fetch(url)
             .then((response) => response.json()) // format to json
@@ -45,12 +53,14 @@ export const useHeaderProps = (): HeaderProps => {
                     (a: SearchResult, b: SearchResult) =>
                         b.searchScore - a.searchScore
                 )
+                setLoading(false)
                 setSearchResults(sortedData)
             })
             .catch((error) => {
                 // handle the error
                 console.error('Error fetching search results:', error)
                 setSearchResults([])
+                setLoading(false)
                 setErrorMessage('Error fetching search results')
             })
     }

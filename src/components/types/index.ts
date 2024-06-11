@@ -1,3 +1,4 @@
+// Type definitions for the components
 export interface SearchThemeContextProps {
     theme: string
     searchResults: SearchResult[]
@@ -9,6 +10,8 @@ export interface SearchThemeContextProps {
     sortResults: (results: SearchResult[]) => SearchResult[]
     sortBy: string
     setSortBy: (sortBy: string) => void
+    loading: boolean
+    setLoading: (loading: boolean) => void
 }
 export interface HeaderProps {
     searchQuery: string
@@ -20,6 +23,7 @@ export interface HeaderProps {
     handleCheckboxChange: () => void
 }
 
+// Type definition for API response
 export type SearchResult = {
     package: {
         name: string
@@ -68,4 +72,9 @@ export type ResultItem = {
 
 export type ResultItemProps = {
     result: Partial<SearchResult>
+}
+
+export interface LoaderProps {
+    size?: number
+    color?: string
 }
