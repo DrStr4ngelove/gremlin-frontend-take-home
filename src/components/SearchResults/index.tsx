@@ -9,12 +9,14 @@ import Loader from '../Loader'
 export const SearchResults: React.FC = () => {
     const {
         searchResults = [],
+        filteredResults = [],
         theme,
         errorMessage = '',
         sortResults,
         loading,
     } = useSearchThemeContext()
-
+    const actualResults =
+        filteredResults.length > 0 ? filteredResults : searchResults
     // Reurn error message if there is one
     if (errorMessage) {
         return (
@@ -34,12 +36,12 @@ export const SearchResults: React.FC = () => {
     // Return search results if there are any
     return (
         <div className={`search-results ${theme}`}>
-            {searchResults.length === 0 ? (
+            {actualResults.length === 0 ? (
                 <p className="no-results">No results found</p>
             ) : (
                 <>
                     <SortBy />
-                    {sortResults(searchResults).map(
+                    {sortResults(actualResults).map(
                         (result: SearchResult, index: number) => (
                             <SearchResultItem
                                 key={`result-${index}`}

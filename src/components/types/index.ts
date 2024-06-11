@@ -12,6 +12,11 @@ export interface SearchThemeContextProps {
     setSortBy: (sortBy: string) => void
     loading: boolean
     setLoading: (loading: boolean) => void
+    keywordList: string[]
+    setKeywordList: (keywords: string[]) => void
+    filteredResults: SearchResult[]
+    filterByKeyWord: (keyword: string) => void
+    setFilteredResults: (results: SearchResult[]) => void
 }
 export interface HeaderProps {
     searchQuery: string

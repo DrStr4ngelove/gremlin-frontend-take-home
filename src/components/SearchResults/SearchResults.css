@@ -49,6 +49,17 @@
     flex-direction: column;
 }
 
+.keywords {
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.keywords span {
+    padding: 4px;
+}
+
 /* Media query for mobile devices */
 @media only screen and (max-width: 767px) {
     .sorting-options {

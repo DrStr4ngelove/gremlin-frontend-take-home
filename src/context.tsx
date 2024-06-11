@@ -10,14 +10,24 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+    const [filteredResults, setFilteredResults] = useState<SearchResult[]>([])
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [theme, setTheme] = useState<string>('light')
     const [sortBy, setSortBy] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
+    const [keywordList, setKeywordList] = useState<any[]>([])
 
     // Toggle between light and dark theme
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+    }
+
+    // filter by keyword
+    const filterByKeyWord = (keyword: string) => {
+        const filteredResults = searchResults.filter((result) =>
+            result.package?.keywords?.includes(keyword)
+        )
+        setFilteredResults(filteredResults)
     }
 
     // Sort search results based on selected criteria
@@ -60,6 +70,11 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                 setSortBy,
                 loading,
                 setLoading,
+                keywordList,
+                setKeywordList,
+                filteredResults,
+                filterByKeyWord,
+                setFilteredResults,
             }}
         >
             {children}

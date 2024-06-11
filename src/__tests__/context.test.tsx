@@ -5,12 +5,14 @@ import { SearchResult } from '../components/types'
 
 // Helper component to access context
 const TestComponent: React.FC = () => {
-    const context = useSearchThemeContext()
+    const { toggleTheme, theme, totalPackages } = useSearchThemeContext()
     return (
         <div>
-            <span data-testid="theme">{context.theme}</span>
-            <span data-testid="totalPackages">{context.totalPackages}</span>
-            <button onClick={context.toggleTheme}>Toggle Theme</button>
+            <span data-testid="theme">{theme}</span>
+            <span data-testid="totalPackages">{totalPackages}</span>
+            <button data-testid="toggleTheme" onClick={toggleTheme}>
+                Toggle Theme
+            </button>
         </div>
     )
 }
@@ -42,7 +44,7 @@ describe('SearchThemeContext', () => {
     //         </SearchThemeProvider>
     //     )
     //     expect(screen.getByTestId('theme')).toHaveTextContent('light')
-    //     screen.getByText('Toggle Theme').click()
+    //     screen.getByTestId('toggleTheme').click()
     //     expect(screen.getByTestId('theme')).toHaveTextContent('dark')
     // })
 
