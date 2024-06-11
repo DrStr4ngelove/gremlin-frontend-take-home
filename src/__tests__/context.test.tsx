@@ -55,8 +55,7 @@ describe('SearchThemeContext', () => {
                     detail: {
                         quality: 5,
                         popularity: 7,
-                        relevance: 8,
-                        maintenance: 7,
+                        maintenance: 8,
                     },
                 },
             },
@@ -67,8 +66,7 @@ describe('SearchThemeContext', () => {
                     detail: {
                         quality: 9,
                         popularity: 6,
-                        relevance: 3,
-                        maintenance: 1,
+                        maintenance: 3,
                     },
                 },
             },
@@ -79,8 +77,7 @@ describe('SearchThemeContext', () => {
                     detail: {
                         quality: 3,
                         popularity: 9,
-                        relevance: 10,
-                        maintenance: 5,
+                        maintenance: 10,
                     },
                 },
             },
@@ -111,13 +108,13 @@ describe('SearchThemeContext', () => {
         expect(sortedByPopularity[0].score.detail.popularity).toBe(9)
 
         act(() => {
-            result.current.setSortBy('relevance')
+            result.current.setSortBy('maintenance')
         })
 
         const sortedByRelevance = result.current.sortResults(
             mockResults as SearchResult[]
         )
-        expect(sortedByRelevance[0].score.detail.relevance).toBe(10)
+        expect(sortedByRelevance[0].score.detail.maintenance).toBe(10)
     })
 
     test('useSearchThemeContext throws error if used outside provider', () => {

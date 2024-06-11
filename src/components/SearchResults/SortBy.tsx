@@ -14,10 +14,10 @@ export const SortBy = (): JSX.Element => {
                     <input
                         type="radio"
                         name="sort"
-                        value="relevance"
-                        onClick={() => setSortBy('relevance')}
+                        value="maintenance"
+                        onClick={() => setSortBy('maintenance')}
                     />
-                    Relevance
+                    Maintenance
                 </label>
                 <label>
                     <input

@@ -28,9 +28,10 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                             b.score.detail.popularity -
                             a.score.detail.popularity
                         )
-                    case 'relevance':
+                    case 'maintenance':
                         return (
-                            b.score.detail.relevance - a.score.detail.relevance
+                            b.score.detail.maintenance -
+                            a.score.detail.maintenance
                         )
                     default:
                         return b.searchScore - a.searchScore

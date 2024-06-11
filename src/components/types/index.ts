@@ -50,7 +50,6 @@ export type SearchResult = {
             quality: number
             popularity: number
             maintenance: number
-            relevance: number
         }
     }
     searchScore: number
