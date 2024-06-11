@@ -64,7 +64,6 @@ describe('useResultItemProps', () => {
             name: 'asdf-cli',
             description: 'ergonomic cli',
             version: '0.0.0',
-            score: 0,
             author: 'Ryan Streur',
             link: 'https://www.npmjs.com/package/asdf-cli',
         })
@@ -75,7 +74,6 @@ describe('useResultItemProps', () => {
         expect(formattedResult.name).toBe('')
         expect(formattedResult.description).toBe('')
         expect(formattedResult.version).toBe('')
-        expect(formattedResult.score).toBe(0)
         expect(formattedResult.author).toBe('')
     })
 

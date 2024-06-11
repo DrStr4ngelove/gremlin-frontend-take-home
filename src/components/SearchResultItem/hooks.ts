@@ -1,7 +1,9 @@
 import { ResultItemProps, ResultItem } from '../types'
 import { useSearchThemeContext } from '../../context'
 
-export const useResultItemProps = (props: ResultItemProps): ResultItem => {
+export const useResultItemProps = (
+    props: ResultItemProps
+): Partial<ResultItem> => {
     const { result } = props
     const { theme } = useSearchThemeContext()
     // format result
@@ -9,7 +11,6 @@ export const useResultItemProps = (props: ResultItemProps): ResultItem => {
         name: result?.package?.name || '',
         description: result?.package?.description || '',
         version: result?.package?.version || '',
-        score: result?.package?.searchScore || 0,
         author: result?.package?.author?.name || '',
         link: result?.package?.links?.npm || '',
     }

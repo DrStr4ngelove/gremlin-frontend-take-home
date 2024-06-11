@@ -8,7 +8,6 @@ export const Main: React.FC = () => {
 
     return (
         <main className={`main ${theme}`}>
-            <h1>Jameson Blake Collins' Gremlin Test</h1>
             <SearchResults />
         </main>
     )

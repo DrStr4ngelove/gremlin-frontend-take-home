@@ -36,6 +36,7 @@ export const Header: React.FC = () => {
                     Break API call
                 </label>
             </form>
+            <h2>Jameson Blake Collins' Gremlin Test</h2>
             <button onClick={toggleTheme} className="button">
                 Theme: {theme}
             </button>

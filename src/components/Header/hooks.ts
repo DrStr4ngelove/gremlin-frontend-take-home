@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { HeaderProps } from '../types'
+import { HeaderProps, SearchResult } from '../types'
 import { useSearchThemeContext } from '../../context'
 
 export const useHeaderProps = (): HeaderProps => {
@@ -18,18 +18,32 @@ export const useHeaderProps = (): HeaderProps => {
 
     // handle search submit - no need to memoize with useCallback
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        // prevent default form submission
         event.preventDefault()
+
+        // clear error message
         setErrorMessage('')
+
+        // Do not call api if there is no search query
+        if (!searchQuery) {
+            // clear search results
+            setSearchResults([])
+            return
+        }
+
+        // construct url
         const url = shouldBreakAPICall
-            ? ''
+            ? null
             : `https://api.npms.io/v2/search/suggestions?q=${searchQuery}`
+
         // fetch results
         fetch(url)
             .then((response) => response.json()) // format to json
             .then((data) => {
                 // format response
                 const sortedData = data.sort(
-                    (a: any, b: any) => b.searchScore - a.searchScore
+                    (a: SearchResult, b: SearchResult) =>
+                        b.searchScore - a.searchScore
                 )
                 setSearchResults(sortedData)
             })

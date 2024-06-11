@@ -5,16 +5,39 @@ const SearchThemeContext = createContext<SearchThemeContextProps | undefined>(
     undefined
 )
 
-// Use conext provider to manage state of app
+// Use context provider to manage state of app
 const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const [searchResults, setSearchResults] = useState<SearchResult[]>([])
     const [errorMessage, setErrorMessage] = useState<string>('')
-    const [theme, setTheme] = useState('light')
-
+    const [theme, setTheme] = useState<string>('light')
+    const [sortBy, setSortBy] = useState<string>('')
     const toggleTheme = () => {
         setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+    }
+
+    const sortResults = (results: SearchResult[]): SearchResult[] => {
+        const sortedResults = results.sort(
+            (a: SearchResult, b: SearchResult) => {
+                switch (sortBy) {
+                    case 'quality':
+                        return b.score.detail.quality - a.score.detail.quality
+                    case 'popularity':
+                        return (
+                            b.score.detail.popularity -
+                            a.score.detail.popularity
+                        )
+                    case 'relevance':
+                        return (
+                            b.score.detail.relevance - a.score.detail.relevance
+                        )
+                    default:
+                        return b.searchScore - a.searchScore
+                }
+            }
+        )
+        return sortedResults
     }
 
     return (
@@ -27,6 +50,9 @@ const SearchThemeProvider: React.FC<{ children: ReactNode }> = ({
                 totalPackages: searchResults?.length,
                 errorMessage,
                 setErrorMessage,
+                sortResults,
+                sortBy,
+                setSortBy,
             }}
         >
             {children}

@@ -3,12 +3,14 @@ import SearchResultItem from '../SearchResultItem'
 import { useSearchThemeContext } from '../../context'
 import { SearchResult } from '../types'
 import './SearchResults.css'
+import SortBy from './SortBy'
 
 export const SearchResults: React.FC = () => {
     const {
         searchResults = [],
         theme,
         errorMessage = '',
+        sortResults,
     } = useSearchThemeContext()
 
     // Reurn error message if there is one
@@ -25,9 +27,17 @@ export const SearchResults: React.FC = () => {
             {searchResults.length === 0 ? (
                 <p className="no-results">No results found</p>
             ) : (
-                searchResults.map((result: SearchResult, index: number) => (
-                    <SearchResultItem key={`result-${index}`} result={result} />
-                ))
+                <>
+                    <SortBy />
+                    {sortResults(searchResults).map(
+                        (result: SearchResult, index: number) => (
+                            <SearchResultItem
+                                key={`result-${index}`}
+                                result={result}
+                            />
+                        )
+                    )}
+                </>
             )}
         </div>
     )

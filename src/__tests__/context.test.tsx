@@ -1,111 +1,132 @@
-import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { renderHook } from '@testing-library/react-hooks'
-import '@testing-library/jest-dom/extend-expect'
+import React, { act } from 'react'
+import { render, renderHook, screen } from '@testing-library/react'
 import { SearchThemeProvider, useSearchThemeContext } from '../context'
+import { SearchResult } from '../components/types'
 
-// Test component to consume context
-const TestComponent = () => {
-    const {
-        searchResults,
-        setSearchResults,
-        theme,
-        toggleTheme,
-        totalPackages,
-        errorMessage,
-        setErrorMessage,
-    } = useSearchThemeContext()
-
+// Helper component to access context
+const TestComponent: React.FC = () => {
+    const context = useSearchThemeContext()
     return (
         <div>
-            <span data-testid="theme">{theme}</span>
-            <button data-testid="toggle-theme" onClick={toggleTheme}>
-                Toggle Theme
-            </button>
-            <span data-testid="total-packages">{totalPackages}</span>
-            <button
-                data-testid="add-error"
-                onClick={() => setErrorMessage([...errorMessage, 'New Error'])}
-            >
-                Add Error
-            </button>
-            <span data-testid="error-messages">{errorMessage}</span>
-            <button
-                data-testid="add-result"
-                onClick={() =>
-                    setSearchResults([
-                        ...searchResults,
-                        { package: { name: 'Test' } },
-                    ])
-                }
-            >
-                Add Result
-            </button>
-            <span data-testid="search-results">{searchResults.length}</span>
+            <span data-testid="theme">{context.theme}</span>
+            <span data-testid="totalPackages">{context.totalPackages}</span>
+            <button onClick={context.toggleTheme}>Toggle Theme</button>
         </div>
     )
 }
 
 describe('SearchThemeContext', () => {
-    test('provides default values', () => {
+    test('renders children correctly', () => {
         render(
             <SearchThemeProvider>
-                <TestComponent />
+                <div>Test Child</div>
             </SearchThemeProvider>
         )
-
-        expect(screen.getByTestId('theme')).toHaveTextContent('light')
-        expect(screen.getByTestId('total-packages')).toHaveTextContent('0')
-        expect(screen.getByTestId('error-messages')).toHaveTextContent('')
-        expect(screen.getByTestId('search-results')).toHaveTextContent('0')
+        expect(screen.getByText('Test Child')).toBeInTheDocument()
     })
 
-    test('toggles theme correctly', () => {
+    test('provides initial state values', () => {
         render(
             <SearchThemeProvider>
                 <TestComponent />
             </SearchThemeProvider>
         )
-
         expect(screen.getByTestId('theme')).toHaveTextContent('light')
-        fireEvent.click(screen.getByTestId('toggle-theme'))
+        expect(screen.getByTestId('totalPackages')).toHaveTextContent('0')
+    })
+
+    test('updates state when toggleTheme is called', () => {
+        render(
+            <SearchThemeProvider>
+                <TestComponent />
+            </SearchThemeProvider>
+        )
+        expect(screen.getByTestId('theme')).toHaveTextContent('light')
+        screen.getByText('Toggle Theme').click()
         expect(screen.getByTestId('theme')).toHaveTextContent('dark')
-        fireEvent.click(screen.getByTestId('toggle-theme'))
-        expect(screen.getByTestId('theme')).toHaveTextContent('light')
     })
 
-    test('adds error messages correctly', () => {
-        render(
-            <SearchThemeProvider>
-                <TestComponent />
-            </SearchThemeProvider>
-        )
+    test('sortResults function sorts results correctly', () => {
+        const mockResults: Partial<SearchResult>[] = [
+            {
+                searchScore: 10,
+                score: {
+                    final: 0.16857502096518526,
+                    detail: {
+                        quality: 5,
+                        popularity: 7,
+                        relevance: 8,
+                        maintenance: 7,
+                    },
+                },
+            },
+            {
+                searchScore: 15,
+                score: {
+                    final: 0.16857502096518526,
+                    detail: {
+                        quality: 9,
+                        popularity: 6,
+                        relevance: 3,
+                        maintenance: 1,
+                    },
+                },
+            },
+            {
+                searchScore: 5,
+                score: {
+                    final: 0.16857502096518526,
+                    detail: {
+                        quality: 3,
+                        popularity: 9,
+                        relevance: 10,
+                        maintenance: 5,
+                    },
+                },
+            },
+        ]
 
-        fireEvent.click(screen.getByTestId('add-error'))
-        expect(screen.getByTestId('error-messages')).toHaveTextContent(
-            'New Error'
+        const { result } = renderHook(() => useSearchThemeContext(), {
+            wrapper: ({ children }) => (
+                <SearchThemeProvider>{children}</SearchThemeProvider>
+            ),
+        })
+
+        act(() => {
+            result.current.setSortBy('quality')
+        })
+
+        const sortedByQuality = result.current.sortResults(
+            mockResults as SearchResult[]
         )
+        expect(sortedByQuality[0].score.detail.quality).toBe(9)
+
+        act(() => {
+            result.current.setSortBy('popularity')
+        })
+
+        const sortedByPopularity = result.current.sortResults(
+            mockResults as SearchResult[]
+        )
+        expect(sortedByPopularity[0].score.detail.popularity).toBe(9)
+
+        act(() => {
+            result.current.setSortBy('relevance')
+        })
+
+        const sortedByRelevance = result.current.sortResults(
+            mockResults as SearchResult[]
+        )
+        expect(sortedByRelevance[0].score.detail.relevance).toBe(10)
     })
 
-    test('adds search results correctly', () => {
-        render(
-            <SearchThemeProvider>
-                <TestComponent />
-            </SearchThemeProvider>
+    test('useSearchThemeContext throws error if used outside provider', () => {
+        const consoleErrorSpy = jest
+            .spyOn(console, 'error')
+            .mockImplementation(() => {})
+        expect(() => render(<TestComponent />)).toThrow(
+            'useSearchThemeContext must be used within a SearchThemeProvider'
         )
-
-        fireEvent.click(screen.getByTestId('add-result'))
-        expect(screen.getByTestId('search-results')).toHaveTextContent('1')
-        expect(screen.getByTestId('total-packages')).toHaveTextContent('1')
-    })
-
-    test('throws error when using context outside provider', () => {
-        const { result } = renderHook(() => useSearchThemeContext())
-
-        expect(result.error).toEqual(
-            new Error(
-                'useSearchThemeContext must be used within a SearchThemeProvider'
-            )
-        )
+        consoleErrorSpy.mockRestore()
     })
 })

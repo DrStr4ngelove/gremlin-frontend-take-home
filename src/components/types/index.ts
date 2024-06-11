@@ -6,6 +6,9 @@ export interface SearchThemeContextProps {
     errorMessage: string
     setErrorMessage: (messages: string) => void
     totalPackages: number | undefined
+    sortResults: (results: SearchResult[]) => SearchResult[]
+    sortBy: string
+    setSortBy: (sortBy: string) => void
 }
 export interface HeaderProps {
     searchQuery: string
@@ -39,17 +42,18 @@ export type SearchResult = {
         maintainers: Array<{
             username: string
         }>
-        score: {
-            final: number
-            detail: {
-                quality: number
-                popularity: number
-                maintenance: number
-            }
-        }
-        searchScore: number
         highlight: string
     }
+    score: {
+        final: number
+        detail: {
+            quality: number
+            popularity: number
+            maintenance: number
+            relevance: number
+        }
+    }
+    searchScore: number
 }
 
 export type ResultItem = {
@@ -58,7 +62,6 @@ export type ResultItem = {
         description: string
         version: string
         author: string
-        score: number
         link: string
     }
     theme: string
