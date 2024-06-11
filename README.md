@@ -3,13 +3,17 @@
 -   I built this take home using React with Typescript and included test suites for each component
 -   In doing this, I had some trouble getting the module peer dependencies to play nicely together, especially regarding test suites
 -   Because of this, to run the package, use `npm i --force`
+-   `npm start` to run the application
+-   `npm test` to run the testing suites
 -   Checklist:
--   -   search results are displayed and sorted by search score accuracy
--   -   results are linked to their npm page
--   -   test suites for all components
--   -   utilized React context for state managment
--   -   checkbox added for breaking api call
--   -   theme is dynamic to light or dark with added button
+    -   search results are displayed and sorted by search score accuracy
+    -   results are linked to their npm page
+    -   spinning loader for showing api waiting response
+    -   sort packages by maintenence, popularity, quality scores
+    -   test suites for all components
+    -   utilized React context for state managment
+    -   checkbox added for breaking api call
+    -   theme is dynamic to light or dark with added button
 
 # Gremlin Frontend Take Home
 
