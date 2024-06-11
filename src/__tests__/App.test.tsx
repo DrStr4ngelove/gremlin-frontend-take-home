@@ -1,8 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
 import App from '../App'
-import { SearchThemeProvider } from '../context'
 
 // Mock the child components to focus on the App component
 jest.mock('../components/Header', () => () => (
