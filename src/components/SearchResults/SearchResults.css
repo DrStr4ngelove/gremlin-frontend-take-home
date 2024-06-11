@@ -48,3 +48,19 @@
     display: flex;
     flex-direction: column;
 }
+
+/* Media query for mobile devices */
+@media only screen and (max-width: 767px) {
+    .sorting-options {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+    .radio-group {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .radio-group label {
+        margin-right: 0.5rem;
+    }
+}
